@@ -1,0 +1,60 @@
+<div class="filters d-flex flex-column gap-1 my-4 bg-white rounded-4 px-4 py-3 shadow-sm border">
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="text-primary d-flex align-items-center">
+            <lucide-icon [name]="filterIcon" size="12" class="d-flex align-items-center me-1" />
+            <span>Filtry</span>
+        </div>
+        <button class="btn btn-sm btn-reset" (click)="onResetFilters()">Resetuj filtry</button>
+    </div>
+
+    <div class="d-flex gap-3">
+        <div class="filter-item flex-grow-1">
+            <input
+                type="text"
+                [ngModel]="filters().name"
+                name="name"
+                (ngModelChange)="onFilterChange($event, 'name')"
+                placeholder="Filtruj według nazwy..."
+                class="form-control"
+                aria-label="Filtruj według nazwy"
+            />
+        </div>
+
+        <div class="filter-item flex-grow-1">
+            <input
+                type="date"
+                [ngModel]="filters().dateStart"
+                name="dateStart"
+                (ngModelChange)="onFilterChange($event, 'dateStart')"
+                class="form-control"
+                aria-label="Filtruj według daty początkowej"
+            />
+        </div>
+
+        <div class="filter-item flex-grow-1">
+            <input
+                type="date"
+                [ngModel]="filters().dateEnd"
+                name="dateEnd"
+                (ngModelChange)="onFilterChange($event, 'dateEnd')"
+                class="form-control"
+                aria-label="Filtruj według daty końcowej"
+            />
+        </div>
+
+        <div class="filter-item flex-grow-1">
+            <select
+                [ngModel]="filters().status"
+                name="status"
+                (ngModelChange)="onFilterChange($event, 'status')"
+                class="form-select"
+                aria-label="Filtruj według statusu"
+            >
+                <option value="All">Wszystkie zadania</option>
+                <option value="Completed">Zakończone</option>
+                <option value="Pending">W toku</option>
+                <option value="Planned">Planowane</option>
+            </select>
+        </div>
+    </div>
+</div>

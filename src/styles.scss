@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'bootstrap/scss/bootstrap' with (
+    $primary: #6D52FB,
+    $secondary: #7e66f5,
+
+    $body-bg: #F4F4FF,
+
+    $btn-border-radius: 12px,
+
+    $container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+    ),
+
+    $font-family-sans-serif: ('Roboto', sans-serif),
+);

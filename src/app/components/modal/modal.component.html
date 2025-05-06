@@ -1,0 +1,59 @@
+<div class="modal" [ngClass]="{ 'show d-block': open() }" tabindex="-1" (click)="closeModal()">
+    <div class="modal-dialog modal-dialog-centered" (click)="stopPropagation($event)">
+        <div class="modal-content bg-white">
+            <div class="modal-header d-flex justify-content-between align-items-center gap-5">
+                <h5 class="modal-title">Dodaj nowe zadanie</h5>
+                <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+            </div>
+            <form (ngSubmit)="addTask(taskForm)" #taskForm="ngForm">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nazwa</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            [class.is-invalid]="(nameInput.invalid && (nameInput.dirty || nameInput.touched)) || (taskForm.submitted && nameInput.invalid)"
+                            id="name" 
+                            name="name" 
+                            #nameInput="ngModel" 
+                            placeholder="Nazwa zadania" 
+                            [(ngModel)]="task().name" 
+                            required 
+                            minlength="3"
+                        >
+                        <div *ngIf="(nameInput.invalid && (nameInput.dirty || nameInput.touched)) || (taskForm.submitted && nameInput.invalid)" class="invalid-feedback">
+                            <div *ngIf="nameInput.errors?.['required']">Nazwa jest wymagana</div>
+                            <div *ngIf="nameInput.errors?.['minlength']">Nazwa musi mieć minimum 3 znaki</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Opis (opcjonalnie)</label>
+                        <textarea class="form-control" id="description" name="description" placeholder="Opis zadania" [(ngModel)]="task().description"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="date" class="form-label">Data</label>
+                        <input 
+                            type="date" 
+                            class="form-control" 
+                            [class.is-invalid]="(dateInput.invalid && (dateInput.dirty || dateInput.touched)) || (taskForm.submitted && dateInput.invalid) || isDateInPast(dateInput.value)"
+                            id="date" 
+                            name="date" 
+                            #dateInput="ngModel" 
+                            placeholder="Data zadania" 
+                            [(ngModel)]="task().date"
+                            required
+                        >
+                        <div *ngIf="(dateInput.invalid && (dateInput.dirty || dateInput.touched)) || (taskForm.submitted && dateInput.invalid) || isDateInPast(dateInput.value)" class="invalid-feedback">
+                            <div *ngIf="dateInput.errors?.['required']">Data jest wymagana</div>
+                            <div *ngIf="isDateInPast(dateInput.value)">Data nie może być z przeszłości</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="closeModal()">Anuluj</button>
+                    <button type="submit" class="btn btn-primary">Dodaj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
