@@ -1,6 +1,6 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, input, output, signal, computed } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { Task } from '../../types/task.type';
+import { Task, TaskStatus, TaskStatusEnum } from '../../types/task.type';
 import { LucideAngularModule, CheckCircle2Icon, CircleIcon, ChevronDownIcon } from 'lucide-angular';
 import { NgIf } from '@angular/common';
 
@@ -18,6 +18,7 @@ export class TodoItemComponent {
   task = input.required<Task>();
   complete = output<number>();
   descVisible = signal(false);
+  displayedStatus = computed(() => this.getDisplayedStatus(this.task().status));
 
   toggleCompleted() {
     this.complete.emit(this.task().id);
@@ -25,5 +26,9 @@ export class TodoItemComponent {
 
   toggleDescription() {
     this.descVisible.update(visible => !visible);
+  }
+
+  getDisplayedStatus(status: TaskStatus) {
+    return TaskStatusEnum[status];
   }
 }

@@ -17,7 +17,7 @@
                             'bg-success': task().status === 'Completed',
                             'bg-info': task().status === 'Planned',
                             'bg-warning': task().status === 'Pending'
-                        }">{{ task().status }}</span>
+                        }">{{ displayedStatus() }}</span>
                     </div>
                 </div>
             </div>

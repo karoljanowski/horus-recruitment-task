@@ -7,3 +7,9 @@ export type Task = {
 };
 
 export type TaskStatus = 'Completed' | 'Pending' | 'Planned';
+
+export enum TaskStatusEnum {
+    Completed = 'Ukończone',
+    Pending = 'W toku',
+    Planned = 'Planowane'
+}
